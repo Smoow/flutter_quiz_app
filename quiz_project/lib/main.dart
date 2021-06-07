@@ -21,11 +21,18 @@ class _QuizAppState extends State<QuizApp> {
   @override
   Widget build(BuildContext context) {
     final perguntas = [
-      'Qual sua cor favorita?',
-      'Qual o melhor dev?',
-      'Energético?',
-      'Nova pergunta 04',
-      'Outra pergunta 05'
+      {
+        'text': 'Qual sua cor favorita?',
+        'answers': ['Azul', 'Vermelho', 'Laranja', 'Preto'],
+      },
+      {
+        'text': 'Qual seu energético favorito??',
+        'answers': ['Redbull', 'Monster', 'Power', 'Punisher'],
+      },
+      {
+        'text': 'Qual seu dev favorito?',
+        'answers': ['Dyokin', 'Smoow', 'Izzas', 'Luizzas'],
+      },
     ];
     return MaterialApp(
       home: Scaffold(
@@ -35,7 +42,7 @@ class _QuizAppState extends State<QuizApp> {
         ),
         body: Column(
           children: [
-            Question(perguntas[_indexPergunta]),
+            Question(perguntas[_indexPergunta]['text']),
             Answer('Resposta 1', _responder),
             Answer('Resposta 2', _responder),
             Answer('Resposta 3', _responder),
