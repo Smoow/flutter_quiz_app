@@ -11,31 +11,37 @@ class QuizApp extends StatefulWidget {
 
 class _QuizAppState extends State<QuizApp> {
   var _indexPergunta = 0;
+  final _perguntas = const [
+    {
+      'text': 'Qual sua cor favorita?',
+      'answers': ['Azul', 'Vermelho', 'Laranja', 'Preto'],
+    },
+    {
+      'text': 'Qual seu energético favorito??',
+      'answers': ['Redbull', 'Monster', 'Power', 'Punisher'],
+    },
+    {
+      'text': 'Qual seu dev favorito?',
+      'answers': ['Dyokin', 'Smoow', 'Izzas', 'Luizzas'],
+    },
+  ];
 
   void _responder() {
-    setState(() {
-      _indexPergunta++;
-    });
+    if (hasSelectedAnswer) {
+      setState(() {
+        _indexPergunta++;
+      });
+    }
+  }
+
+  bool get hasSelectedAnswer {
+    return _indexPergunta < _perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    final perguntas = [
-      {
-        'text': 'Qual sua cor favorita?',
-        'answers': ['Azul', 'Vermelho', 'Laranja', 'Preto'],
-      },
-      {
-        'text': 'Qual seu energético favorito??',
-        'answers': ['Redbull', 'Monster', 'Power', 'Punisher'],
-      },
-      {
-        'text': 'Qual seu dev favorito?',
-        'answers': ['Dyokin', 'Smoow', 'Izzas', 'Luizzas'],
-      },
-    ];
-
-    List<String> answers = perguntas[_indexPergunta]['answers'];
+    List<String> answers =
+        hasSelectedAnswer ? _perguntas[_indexPergunta]['answers'] : null;
 
     return MaterialApp(
       home: Scaffold(
@@ -43,12 +49,14 @@ class _QuizAppState extends State<QuizApp> {
           title: Text('Perguntas'),
           centerTitle: true,
         ),
-        body: Column(
-          children: [
-            Question(perguntas[_indexPergunta]['text']),
-            ...answers.map((t) => Answer(t, _responder)).toList(),
-          ],
-        ),
+        body: hasSelectedAnswer
+            ? Column(
+                children: [
+                  Question(_perguntas[_indexPergunta]['text']),
+                  ...answers.map((t) => Answer(t, _responder)).toList(),
+                ],
+              )
+            : null,
       ),
     );
   }
