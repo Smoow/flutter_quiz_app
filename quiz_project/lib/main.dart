@@ -10,8 +10,8 @@ class QuizApp extends StatefulWidget {
 }
 
 class _QuizAppState extends State<QuizApp> {
-  var _indexPergunta = 0;
-  final _perguntas = const [
+  var _indexQuestion = 0;
+  final _questions = const [
     {
       'text': 'Qual sua cor favorita?',
       'answers': ['Azul', 'Vermelho', 'Laranja', 'Preto'],
@@ -29,19 +29,19 @@ class _QuizAppState extends State<QuizApp> {
   void _responder() {
     if (hasSelectedAnswer) {
       setState(() {
-        _indexPergunta++;
+        _indexQuestion++;
       });
     }
   }
 
   bool get hasSelectedAnswer {
-    return _indexPergunta < _perguntas.length;
+    return _indexQuestion < _questions.length;
   }
 
   @override
   Widget build(BuildContext context) {
     List<String> answers =
-        hasSelectedAnswer ? _perguntas[_indexPergunta]['answers'] : null;
+        hasSelectedAnswer ? _questions[_indexQuestion]['answers'] : null;
 
     return MaterialApp(
       home: Scaffold(
@@ -52,7 +52,7 @@ class _QuizAppState extends State<QuizApp> {
         body: hasSelectedAnswer
             ? Column(
                 children: [
-                  Question(_perguntas[_indexPergunta]['text']),
+                  Question(_questions[_indexQuestion]['text']),
                   ...answers.map((t) => Answer(t, _responder)).toList(),
                 ],
               )
