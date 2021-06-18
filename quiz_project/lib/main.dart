@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
+import './forms.dart';
 import './result.dart';
 
 main() => runApp(QuizApp());
@@ -41,9 +40,6 @@ class _QuizAppState extends State<QuizApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> answers =
-        hasSelectedAnswer ? _questions[_indexQuestion]['answers'] : null;
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -51,12 +47,10 @@ class _QuizAppState extends State<QuizApp> {
           centerTitle: true,
         ),
         body: hasSelectedAnswer
-            ? Column(
-                children: [
-                  Question(_questions[_indexQuestion]['text']),
-                  ...answers.map((t) => Answer(t, _responder)).toList(),
-                ],
-              )
+            ? Forms(
+                questions: _questions,
+                indexQuestion: _indexQuestion,
+                responder: _responder)
             : Result(),
       ),
     );
