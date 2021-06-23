@@ -85,8 +85,13 @@ class _QuizAppState extends State<QuizApp> {
         _totalScore += point;
       });
     }
+  }
 
-    print(_totalScore);
+  void _rebootForms() {
+    setState(() {
+      _indexQuestion = 0;
+      _totalScore = 0;
+    });
   }
 
   bool get hasSelectedAnswer {
@@ -106,7 +111,7 @@ class _QuizAppState extends State<QuizApp> {
                 questions: _questions,
                 indexQuestion: _indexQuestion,
                 responder: _responder)
-            : Result(_totalScore),
+            : Result(_totalScore, _rebootForms),
       ),
     );
   }
