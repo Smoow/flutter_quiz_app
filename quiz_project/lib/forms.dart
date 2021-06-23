@@ -5,12 +5,12 @@ import './answer.dart';
 class Forms extends StatelessWidget {
   final List<Map<String, Object>> questions;
   final int indexQuestion;
-  final void Function(int) responder;
+  final void Function(int) replyFunc;
 
   Forms({
     @required this.questions,
     @required this.indexQuestion,
-    @required this.responder,
+    @required this.replyFunc,
   });
 
   bool get hasSelectedAnswer {
@@ -26,7 +26,7 @@ class Forms extends StatelessWidget {
       children: [
         Question(questions[indexQuestion]['text']),
         ...answers.map((resp) {
-          return Answer(resp['text'], () => responder(resp['score']));
+          return Answer(resp['text'], () => replyFunc(resp['score']));
         }).toList(),
       ],
     );

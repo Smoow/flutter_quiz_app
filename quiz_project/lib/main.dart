@@ -78,7 +78,7 @@ class _QuizAppState extends State<QuizApp> {
     },
   ];
 
-  void _responder(int point) {
+  void _reply(int point) {
     if (hasSelectedAnswer) {
       setState(() {
         _indexQuestion++;
@@ -110,7 +110,7 @@ class _QuizAppState extends State<QuizApp> {
             ? Forms(
                 questions: _questions,
                 indexQuestion: _indexQuestion,
-                responder: _responder)
+                replyFunc: _reply)
             : Result(_totalScore, _rebootForms),
       ),
     );
